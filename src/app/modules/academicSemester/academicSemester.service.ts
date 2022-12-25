@@ -15,6 +15,9 @@ const createSemester = async (
   return result;
 };
 
+const getAllSemester = async () => {};
+
 export const AcademicSemesterService = {
   createSemester,
+  getAllSemester,
 };
