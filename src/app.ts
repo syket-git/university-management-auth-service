@@ -11,7 +11,7 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
 // Testing route
-app.get('/', (req: any, res: any) => {
+app.get('/', (req: any, res) => {
   res.send('Hello World!')
 })
 
