@@ -1,38 +1,59 @@
 import path from 'path'
 import { createLogger, format, transports } from 'winston'
+import DailyRotateFile from 'winston-daily-rotate-file'
 
-const { combine, timestamp, label, prettyPrint } = format
+const { combine, timestamp, label, printf } = format
 
-const formatMsg = combine(
-  label({ label: 'University Management' }),
-  timestamp(),
-  prettyPrint(),
-)
+// Custom format
+const myFormat = printf(({ level, message, label, timestamp }) => {
+  const date = new Date(timestamp)
+  const hours = date.getHours()
+  const mins = date.getMinutes()
+  const sec = date.getSeconds()
+  return `Date: ${date.toDateString()} Time: ${hours}:${mins}:${sec} [${label}] ${level}: ${message}`
+})
 
 const logger = createLogger({
   level: 'info',
-  format: formatMsg,
+  format: combine(label({ label: 'UM' }), timestamp(), myFormat),
   defaultMeta: { service: 'user-service' },
   transports: [
     new transports.Console(),
-
-    new transports.File({
-      filename: path.join(process.cwd(), 'logs', 'winston', 'success.log'),
-      level: 'info',
+    new DailyRotateFile({
+      filename: path.join(
+        process.cwd(),
+        'logs',
+        'winston',
+        'successes',
+        'um-%DATE%-success.log',
+      ),
+      datePattern: 'YYYY-DD-MM-HH',
+      zippedArchive: true,
+      maxSize: '20m',
+      maxFiles: '14d',
     }),
   ],
 })
 
 const errorLogger = createLogger({
   level: 'error',
-  format: formatMsg,
+  format: combine(label({ label: 'UM' }), timestamp(), myFormat),
   defaultMeta: { service: 'user-service' },
   transports: [
     new transports.Console(),
 
-    new transports.File({
-      filename: path.join(process.cwd(), 'logs', 'winston', 'error.log'),
-      level: 'error',
+    new DailyRotateFile({
+      filename: path.join(
+        process.cwd(),
+        'logs',
+        'winston',
+        'errors',
+        'um-%DATE%-error.log',
+      ),
+      datePattern: 'YYYY-DD-MM-HH',
+      zippedArchive: true,
+      maxSize: '20m',
+      maxFiles: '14d',
     }),
   ],
 })
