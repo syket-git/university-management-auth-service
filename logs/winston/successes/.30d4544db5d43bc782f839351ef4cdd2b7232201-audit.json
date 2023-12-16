@@ -9,6 +9,7 @@
       "date": 1702618376918,
       "name": "D:\\Next Level Web Development\\university-management-auth-service\\logs\\winston\\successes\\um-2023-15-12-11-success.log",
       "hash": "30ca48692863f7c36543447919f00ecd1fcff77e81cc40a74aa4b4561cabc3a4"
+<<<<<<< HEAD
     },
     {
       "date": 1702664871555,
@@ -24,6 +25,8 @@
       "date": 1702746025315,
       "name": "D:\\Next Level Web Development\\university-management-auth-service\\logs\\winston\\successes\\um-2023-16-12-23-success.log",
       "hash": "a5fcabc1c4708361a6d6e4400a05fbf88e70b086e0288eb111b40104a5fd3aca"
+=======
+>>>>>>> 6ef7d995c76556ad69486495ce30ca1c4cb37625
     }
   ],
   "hashType": "sha256"
