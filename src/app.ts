@@ -1,8 +1,8 @@
 import cors from 'cors'
-import express, { Application, Request, Response } from 'express'
+import express, { Application } from 'express'
 
 import globalErrorHandler from './app/middlewares/globalErrorHandler'
-import usersRouter from './app/modules/users/users.route'
+import { UserRoutes } from './app/modules/users/user.route'
 
 const app: Application = express()
 
@@ -14,10 +14,10 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
 // Application route
-app.use('/api/v1/users', usersRouter)
+app.use('/api/v1/users', UserRoutes)
 
 // Testing route
-app.get('/', async (req: Request, res: Response) => {
+app.get('/', async (req, res) => {
   res.send('Hello World!')
   // throw new ApiError(400, 'New Error generated')
 })
