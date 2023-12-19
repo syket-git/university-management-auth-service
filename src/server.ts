@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { Server } from 'http'
 import mongoose from 'mongoose'
 import app from './app'
@@ -21,12 +22,15 @@ async function bootstrap() {
   }
 
   process.on('unhandledRejection', err => {
+    console.log('Unhandled rejection is detected, we are closing our server')
     if (server) {
       server.close(() => {
         errorLogger.error(err)
+        process.exit(1)
       })
+    } else {
+      process.exit(1)
     }
-    process.exit(1)
   })
 }
 
