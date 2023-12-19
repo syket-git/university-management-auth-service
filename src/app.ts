@@ -17,12 +17,10 @@ app.use(express.urlencoded({ extended: true }))
 app.use('/api/v1/users', UserRoutes)
 
 // Testing route
-app.get('/', async (req, res) => {
-  res.send('Hello World!')
-  // throw new ApiError(400, 'New Error generated')
+app.get('/', async () => {
+  Promise.reject(new Error('Unhandled promise rejection'))
 })
 
-//Global error handler
 app.use(globalErrorHandler)
 
 export default app
