@@ -1,4 +1,4 @@
-import status from 'http-status';
+import httpStatus from 'http-status';
 import { Schema, model } from 'mongoose';
 
 import ApiError from '../../../error/ApiError';
@@ -37,7 +37,7 @@ academicSemesterSchema.pre('save', async function (next) {
 
   if (isExists) {
     throw new ApiError(
-      status.CONFLICT,
+      httpStatus.CONFLICT,
       "Same Year and Same title doesn't allowed",
     );
   }
