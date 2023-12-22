@@ -1,4 +1,7 @@
+import status from 'http-status';
 import { Schema, model } from 'mongoose';
+
+import ApiError from '../../../error/ApiError';
 import {
   academicSemesterCodes,
   academicSemesterMonths,
@@ -24,6 +27,22 @@ const academicSemesterSchema = new Schema<IAcademicSemester>(
     timestamps: true,
   },
 );
+
+// Handling same year and same semester issue
+academicSemesterSchema.pre('save', async function (next) {
+  const isExists = await AcademicSemester.findOne({
+    title: this.title,
+    year: this.year,
+  });
+
+  if (isExists) {
+    throw new ApiError(
+      status.CONFLICT,
+      "Same Year and Same title doesn't allowed",
+    );
+  }
+  next();
+});
 
 export const AcademicSemester = model<
   IAcademicSemester,
