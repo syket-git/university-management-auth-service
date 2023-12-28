@@ -12,7 +12,7 @@ type IPotionsResult = {
   limit: number;
   skip: number;
   sortBy: string;
-  sortOrder: SortOrder;
+  sortOrder?: SortOrder;
 };
 
 const calculatePagination = (options: IOptions): IPotionsResult => {
