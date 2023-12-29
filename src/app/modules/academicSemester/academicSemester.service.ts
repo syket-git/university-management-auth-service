@@ -1,5 +1,5 @@
 import httpStatus from 'http-status';
-import { SortOrder } from 'mongoose';
+import { Document, ModifyResult, SortOrder, Types } from 'mongoose';
 import ApiError from '../../../error/ApiError';
 import { PaginationHelper } from '../../../helpers/paginationHelpers';
 import { IGenericResponse } from '../../../interfaces/common';
@@ -14,6 +14,7 @@ import {
 } from './academicSemester.interface';
 import { AcademicSemester } from './academicSemester.model';
 
+// Create semester
 const createSemester = async (
   payload: IAcademicSemester,
 ): Promise<IAcademicSemester> => {
@@ -25,6 +26,7 @@ const createSemester = async (
   return result;
 };
 
+// Get all semester
 const getAllSemester = async (
   filters: IAcademicSemesterFilter,
   paginationOptions: IPaginationOptions,
@@ -80,6 +82,7 @@ const getAllSemester = async (
   };
 };
 
+// Get Single Semester
 const getSingleSemester = async (
   id: string,
 ): Promise<IAcademicSemester | null> => {
@@ -87,6 +90,7 @@ const getSingleSemester = async (
   return result;
 };
 
+// Update Semester
 const updateSemester = async (
   id: string,
   updateData: Partial<IAcademicSemester>,
@@ -107,9 +111,25 @@ const updateSemester = async (
   return result;
 };
 
+// Delete Semester
+const deleteSemester = async (
+  id: string,
+): Promise<
+  ModifyResult<
+    Document<unknown, object, IAcademicSemester> &
+      IAcademicSemester & {
+        _id: Types.ObjectId;
+      }
+  >
+> => {
+  const result = await AcademicSemester.findByIdAndDelete(id);
+  return result;
+};
+
 export const AcademicSemesterService = {
   createSemester,
   getAllSemester,
   getSingleSemester,
   updateSemester,
+  deleteSemester,
 };
