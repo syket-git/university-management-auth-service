@@ -18,9 +18,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/api/v1', routes);
 
 // Testing route
-app.get('/', async () => {
-  // Promise.reject(new Error('Unhandled promise rejection'))
-  // console.log(x)
+app.get('/', async (req, res) => {
+  res.status(200).json({
+    message: 'Testing route',
+  });
 });
 
 // global error handler
