@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable no-unused-vars */
 import { IGenericErrorMessage } from './../../interfaces/error';
 /* eslint-disable no-console */
 /* eslint-disable no-unused-expressions */
@@ -52,7 +54,7 @@ const globalErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
     stack: config.env === 'development' ? err.stack : undefined,
   });
 
-  next();
+  // next();
 };
 
 export default globalErrorHandler;
