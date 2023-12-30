@@ -1,4 +1,4 @@
-import { SortOrder } from 'mongoose';
+import { Document, ModifyResult, SortOrder, Types } from 'mongoose';
 import { PaginationHelper } from '../../../helpers/paginationHelpers';
 import { IGenericResponse } from '../../../interfaces/common';
 import { IPaginationOptions } from '../../../interfaces/pagination';
@@ -71,7 +71,43 @@ const getAllFaculty = async (
   };
 };
 
+const getSingleFaculty = async (
+  id: string,
+): Promise<IAcademicFaculty | null> => {
+  const result = await AcademicFaculty.findById(id);
+  return result;
+};
+
+const updateFaculty = async (
+  id: string,
+  updateData: Partial<IAcademicFaculty>,
+): Promise<IAcademicFaculty | null> => {
+  const result = await AcademicFaculty.findOneAndUpdate(
+    { _id: id },
+    updateData,
+    { new: true },
+  );
+  return result;
+};
+
+const deleteFaculty = async (
+  id: string,
+): Promise<
+  ModifyResult<
+    Document<unknown, object, IAcademicFaculty> &
+      IAcademicFaculty & {
+        _id: Types.ObjectId;
+      }
+  >
+> => {
+  const result = await AcademicFaculty.findByIdAndDelete(id);
+  return result;
+};
+
 export const AcademicFacultyService = {
   getAllFaculty,
   createFaculty,
+  getSingleFaculty,
+  updateFaculty,
+  deleteFaculty,
 };
